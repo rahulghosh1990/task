@@ -11,8 +11,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-    public static  final String BASE_URL="https://gorest.co.in/";
     /*public-api/categories*/
+    public static  final String BASE_URL="https://gorest.co.in/";
     private static Retrofit retrofit = null;
     private static OkHttpClient client = null;
     private static Retrofit retrofitTwo = null;
@@ -41,4 +41,19 @@ public class ApiClient {
                     .build();
         }
         return retrofit;
-    }}
+    }
+
+
+/*    private static Retrofit retrofit;
+    public static  final String BASE_URL="https://gorest.co.in/";
+    public static Retrofit getRetrofitInstance() {
+        if (retrofit == null) {
+            retrofit = new retrofit2.Retrofit.Builder()
+                    .baseUrl(BASE_URL)
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .build();
+        }
+        return retrofit;
+    }*/
+
+}

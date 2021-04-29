@@ -8,7 +8,7 @@ public class Entities {
     @SerializedName("code")
     private int code;
     @SerializedName("meta")
-    private List< Meta> meta;
+    private  Meta meta;
     @SerializedName("data")
     private List<Data> data;
 
@@ -20,11 +20,11 @@ public class Entities {
         this.code = code;
     }
 
-    public List<Meta> getMeta() {
+    public Meta getMeta() {
         return meta;
     }
 
-    public void setMeta(List<Meta> meta) {
+    public void setMeta(Meta meta) {
         this.meta = meta;
     }
 

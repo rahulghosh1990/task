@@ -6,13 +6,13 @@ import java.util.List;
 
 public class Meta {
     @SerializedName("pagination")
-    private List< Pagination> paginations;
+    private Pagination paginations;
 
-    public List<Pagination> getPaginations() {
+    public Pagination getPaginations() {
         return paginations;
     }
 
-    public void setPaginations(List<Pagination> paginations) {
+    public void setPaginations(Pagination paginations) {
         this.paginations = paginations;
     }
 }
