@@ -23,6 +23,5 @@ public interface DeshboardContract {
     interface Presenter{
         void onDestroy();
         void requestDataFromServer();
-
     }
 }

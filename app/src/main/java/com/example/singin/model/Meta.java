@@ -1,12 +1,18 @@
 package com.example.singin.model;
 
-public class Meta {
-    private Pagination pagination;
+import com.google.gson.annotations.SerializedName;
 
-    public void setPagination(Pagination pagination){
-        this.pagination = pagination;
+import java.util.List;
+
+public class Meta {
+    @SerializedName("pagination")
+    private List< Pagination> paginations;
+
+    public List<Pagination> getPaginations() {
+        return paginations;
     }
-    public Pagination getPagination(){
-        return this.pagination;
+
+    public void setPaginations(List<Pagination> paginations) {
+        this.paginations = paginations;
     }
 }

@@ -2,7 +2,10 @@ package com.example.singin.model.network;
 
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.example.singin.DeshboardContract;
+import com.example.singin.model.Entities;
 import com.example.singin.model.Pagination;
 
 import retrofit2.Call;
@@ -14,18 +17,17 @@ public class FetchDetailsFromServer implements DeshboardContract.Model {
 
     @Override
     public void getResourses(OnFinishedListner onFinishedListner) {
-        ApiInterface apiservice = ApiClient.getclient().create(ApiInterface.class);
-
-        Call<Pagination> call = apiservice.getresourses();
-        call.enqueue(new Callback<Pagination>() {
+        ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
+        Call<Entities> call = apiservice.getresourses();
+        call.enqueue(new Callback<Entities>() {
             @Override
-            public void onResponse(Call<Pagination> call, Response<Pagination> response) {
-                total = response.body().getTotal();
-                page = response.body().getPage();
+            public void onResponse(@NonNull Call<Entities> call, @NonNull Response<Entities> response) {
+                assert response.body() != null;
+                total = response.body().getCode();
             }
 
             @Override
-            public void onFailure(Call<Pagination> call, Throwable t) {
+            public void onFailure(@NonNull Call<Entities> call, @NonNull Throwable t) {
                 Log.d("RAHUL_ERROR", t.toString());
             }
         });

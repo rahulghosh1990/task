@@ -8,16 +8,14 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.singin.MainActivity;
 import com.example.singin.R;
-import com.example.singin.model.DataModel;
-import com.example.singin.model.Pagination;
+import com.example.singin.model.Entities;
 
 import java.util.ArrayList;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
 
-    private ArrayList<DataModel> dataSet;
+    private ArrayList<Entities> dataSet;
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,7 +31,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         }
     }
 
-    public CustomAdapter(ArrayList<DataModel> data) {
+    public CustomAdapter(ArrayList<Entities> data) {
         this.dataSet = data;
     }
 
@@ -50,9 +48,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         TextView textViewName = holder.textViewName;
         TextView textViewVersion = holder.textViewVersion;
         ImageView imageView = holder.imageViewIcon;
-        textViewName.setText(dataSet.get(listPosition).getName());
-        textViewVersion.setText(dataSet.get(listPosition).getVersion());
-        imageView.setImageResource(dataSet.get(listPosition).getImage());
+        textViewName.setText(dataSet.get(listPosition).getCode());
     }
 
     @Override
