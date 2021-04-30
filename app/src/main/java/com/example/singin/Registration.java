@@ -1,11 +1,14 @@
 package com.example.singin;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,7 +22,7 @@ import com.google.android.material.textfield.TextInputEditText;
 public class Registration extends AppCompatActivity {
 
     TextInputEditText Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword;
-    TextView Register;
+    TextView Register, tv_male, tv_female;
     TextView log_in;
     String first_name, last_name, dob, phone, email, pW, cPW;
     Boolean EditTextEmptyHolder;
@@ -29,19 +32,47 @@ public class Registration extends AppCompatActivity {
     Cursor cursor;
     String F_Result = "Not_Found";
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         Register = findViewById(R.id.btn_continue);
         Email = findViewById(R.id.tie_email);
+        tv_male = findViewById(R.id.tv_male);
+        tv_female = findViewById(R.id.tv_female);
         Password = findViewById(R.id.tie_pw);
         confirmPassword = findViewById(R.id.tie_cpw);
         firstName = findViewById(R.id.tie_fname);
         lastName = findViewById(R.id.tie_flname);
         phoneNumber = findViewById(R.id.tie_phone);
         dateOfBirth = findViewById(R.id.tie_dob);
-        log_in=findViewById(R.id.log_in);
+        log_in = findViewById(R.id.log_in);
+
+        //Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword
+
+
+        tv_male.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            @Override
+            public void onClick(View v) {
+                tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_onclick_background));
+                tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
+            }
+        });
+
+        tv_female.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("UseCompatLoadingForDrawables")
+            @Override
+            public void onClick(View v) {
+                tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_onclick_background));
+                tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
+
+
+            }
+        });
+
+
         log_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,6 +108,7 @@ public class Registration extends AppCompatActivity {
 
     }
 
+
     // SQLite database build method.
     public void SQLiteDataBaseBuild() {
 
@@ -87,18 +119,19 @@ public class Registration extends AppCompatActivity {
     // SQLite table build method.
     public void SQLiteTableBuild() {
 
-        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SqliteHelperClass.TABLE_NAME + "(" + SqliteHelperClass.Table_Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SqliteHelperClass.Table_Column_1_fName + " VARCHAR, " + SqliteHelperClass.Table_Column_2_lName + " VARCHAR, " + SqliteHelperClass.Table_Column_3_Dob + " VARCHAR, "+SqliteHelperClass.Table_Column_4_email+" VARCHAR, "+SqliteHelperClass.Table_Column_5_phone+" VARCHAR, "+SqliteHelperClass.Table_Column_6_PW+" VARCHAR, "+SqliteHelperClass.Table_Column_7_CPW+" VARCHAR);");
+        sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SqliteHelperClass.TABLE_NAME + "(" + SqliteHelperClass.Table_Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SqliteHelperClass.Table_Column_1_fName + " VARCHAR, " + SqliteHelperClass.Table_Column_2_lName + " VARCHAR, " + SqliteHelperClass.Table_Column_3_Dob + " VARCHAR, " + SqliteHelperClass.Table_Column_4_email + " VARCHAR, " + SqliteHelperClass.Table_Column_5_phone + " VARCHAR, " + SqliteHelperClass.Table_Column_6_PW + " VARCHAR, " + SqliteHelperClass.Table_Column_7_CPW + " VARCHAR);");
 
     }
 
     // Insert data into SQLite database method.
+    @SuppressLint("UseCompatLoadingForDrawables")
     public void InsertDataIntoSQLiteDatabase() {
 
         // If editText is not empty then this block will executed.
         if (EditTextEmptyHolder == true) {
 
             // SQLite query to insert data into table.
-            SQLiteDataBaseQueryHolder = "INSERT INTO " + SqliteHelperClass.TABLE_NAME + " (firstname,lastname,dateofbirth,emailaddress,phonenumber,password,confirmpassword) VALUES('"+first_name+"', '"+last_name+"', '"+dob+"', '"+email+"', '"+phone+"',  '"+pW+"', '"+cPW+"');";
+            SQLiteDataBaseQueryHolder = "INSERT INTO " + SqliteHelperClass.TABLE_NAME + " (firstname,lastname,dateofbirth,emailaddress,phonenumber,password,confirmpassword) VALUES('" + first_name + "', '" + last_name + "', '" + dob + "', '" + email + "', '" + phone + "',  '" + pW + "', '" + cPW + "');";
 
             // Executing query.
             sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
@@ -108,13 +141,20 @@ public class Registration extends AppCompatActivity {
 
             // Printing toast message after done inserting.
             Toast.makeText(Registration.this, "User Registered Successfully", Toast.LENGTH_LONG).show();
+            Register.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.confirm_tv_border));
+            tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
+            tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
+
+
+
+
 
         }
         // This block will execute if any of the registration EditText is empty.
         else {
 
             // Printing toast message if any of EditText is empty.
-            Toast.makeText(Registration.this, "Please Fill All The Required Fields.", Toast.LENGTH_LONG).show();
+            Toast.makeText(Registration.this, "Please Fill All The Required Fields.", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -138,22 +178,23 @@ public class Registration extends AppCompatActivity {
 
         // Getting value from All EditText and storing into String Variables.
         first_name = firstName.getText().toString();
-        last_name=lastName.getText().toString();
-        phone=phoneNumber.getText().toString();
-        email=Email.getText().toString();
-        pW=Password.getText().toString();
-        cPW=confirmPassword.getText().toString();
-        dob=dateOfBirth.getText().toString();
+        last_name = lastName.getText().toString();
+        phone = phoneNumber.getText().toString();
+        email = Email.getText().toString();
+        pW = Password.getText().toString();
+        cPW = confirmPassword.getText().toString();
+        dob = dateOfBirth.getText().toString();
 
 
         if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
-                || TextUtils.isEmpty(pW)|| TextUtils.isEmpty(cPW)|| TextUtils.isEmpty(dob)) {
+                || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob)) {
 
             EditTextEmptyHolder = false;
 
         } else {
 
             EditTextEmptyHolder = true;
+
         }
     }
 

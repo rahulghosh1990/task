@@ -35,13 +35,10 @@ public class GetNoticeIntractorImpl implements MainContract.GetNoticeIntractor {
             public void onResponse(@NonNull Call<Entities> call, @NonNull Response<Entities> response) {
                 assert response.body() != null;
             }
-
             @Override
             public void onFailure(Call<Entities> call, Throwable t) {
                 onFinishedListener.onFailure(t);
             }
         });
-
     }
-
 }

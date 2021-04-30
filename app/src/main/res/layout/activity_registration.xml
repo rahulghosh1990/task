@@ -53,7 +53,8 @@
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_fname"
             app:boxStrokeWidthFocused="0dp"
-            tools:layout_editor_absoluteX="0dp" />
+            tools:layout_editor_absoluteX="0dp"
+            />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -65,6 +66,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        android:inputType="text"
         android:layout_marginRight="14dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -72,6 +74,8 @@
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
+            android:inputType="text"
+            android:maxLines="1"
             android:id="@+id/tie_flname"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
@@ -109,6 +113,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        android:inputType="text"
         android:layout_marginRight="14dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -116,6 +121,8 @@
             android:layout_height="60dp"
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
+            android:inputType="text"
+            android:maxLines="1"
             android:id="@+id/tie_email"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
@@ -132,6 +139,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        android:inputType="number"
         android:layout_marginRight="14dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -140,6 +148,7 @@
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_phone"
+            android:inputType="number"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -175,9 +184,9 @@
             android:background="@drawable/tv_border"
             android:gravity="center"
             android:textSize="20sp"
-            android:text="MALE"
+            android:text="Male"
             android:id="@+id/tv_male"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#5f66ed"/>
 
         <TextView
@@ -186,10 +195,10 @@
             android:id="@+id/tv_female"
             android:layout_weight=".5"
             android:background="@drawable/tv_border"
-            android:text="FEMALE"
+            android:text="Female"
             android:gravity="center"
             android:textSize="20sp"
-            android:textAllCaps="true"
+            android:textAllCaps="false"
             android:textColor="#5f66ed"/>
     </LinearLayout>
 
@@ -202,6 +211,7 @@
         app:layout_constraintTop_toBottomOf="@+id/ll_gender"
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
+        android:inputType="number"
         android:layout_marginEnd="14dp"
         android:layout_marginRight="14dp">
 
@@ -212,6 +222,9 @@
             android:layout_marginTop="16dp"
             android:password="true"
             app:boxStrokeWidth="0dp"
+            android:maxLines="1"
+            android:inputType="number"
+
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -226,6 +239,7 @@
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
+        android:inputType="number"
         android:layout_marginRight="14dp">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -234,6 +248,8 @@
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_cpw"
+            android:inputType="number"
+            android:maxLines="1"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>

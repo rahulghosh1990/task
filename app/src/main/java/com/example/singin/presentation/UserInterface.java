@@ -47,9 +47,6 @@ public class UserInterface extends AppCompatActivity implements MainContract.Mai
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(llm);
-
-
-
     }
 
     private void initProgressBar() {
