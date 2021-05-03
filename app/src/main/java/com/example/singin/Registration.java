@@ -11,7 +11,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -30,7 +33,8 @@ import java.util.regex.Pattern;
 public class Registration extends AppCompatActivity {
 
     TextInputEditText Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword;
-    TextView Register, tv_male, tv_female;
+    TextView  tv_male, tv_female,Header;
+    Button Register;
     TextView log_in;
     String gndr;
     String first_name, last_name, dob, phone, email, pW, cPW;
@@ -46,6 +50,7 @@ public class Registration extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         Register = findViewById(R.id.btn_continue);
@@ -59,10 +64,17 @@ public class Registration extends AppCompatActivity {
         phoneNumber = findViewById(R.id.tie_phone);
         dateOfBirth = findViewById(R.id.tie_dob);
         log_in = findViewById(R.id.log_in);
-
         myCalendar = Calendar.getInstance();
-
         dateOfBirth = findViewById(R.id.tie_dob);
+        firstName.addTextChangedListener(loginTextWatcher);
+        lastName.addTextChangedListener(loginTextWatcher);
+        phoneNumber.addTextChangedListener(loginTextWatcher);
+        dateOfBirth.addTextChangedListener(loginTextWatcher);
+        Email.addTextChangedListener(loginTextWatcher);
+        Password.addTextChangedListener(loginTextWatcher);
+        confirmPassword.addTextChangedListener(loginTextWatcher);
+        tv_male.addTextChangedListener(loginTextWatcher);
+        tv_female.addTextChangedListener(loginTextWatcher);
         DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -88,14 +100,12 @@ public class Registration extends AppCompatActivity {
             }
         });
 
-
-        //Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword
         tv_male.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
                 textViewIsClicked=true;
-                tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_onclick_background));
+                tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
                 tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
                 gndr = "Male";
 
@@ -107,7 +117,7 @@ public class Registration extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 textViewIsClicked=true;
-                tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_onclick_background));
+                tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
                 tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
                 gndr = "Female";
 
@@ -121,67 +131,75 @@ public class Registration extends AppCompatActivity {
             }
         });
         sqLiteHelper = new SqliteHelperClass(this);
-        // Adding click listener to register button.
 
         Register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Creating SQLite database if dose n't exists
                 SQLiteDataBaseBuild();
-                // Creating SQLite table if dose n't exists.
                 SQLiteTableBuild();
-                // Checking EditText is empty or Not.
                 CheckEditTextStatus();
-                // Method to check Email is already exists or not.
                 CheckingEmailAlreadyExistsOrNot();
-                // Empty EditText After done inserting process.
                 EmptyEditTextAfterDataInsert();
             }
         });
     }
 
-    private void updateLabel() {
-        String myFormat = "MM/dd/yy"; //In which you need put here
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+    private TextWatcher loginTextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
+            first_name = firstName.getText().toString().trim();
+            last_name = lastName.getText().toString().trim();
+            dob = dateOfBirth.getText().toString().trim();
+            email = Email.getText().toString().trim();
+            pW = Password.getText().toString().trim();
+            cPW = confirmPassword.getText().toString().trim();
+            phone=phoneNumber.getText().toString().trim();
+            if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
+                    || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob) || !textViewIsClicked) {
+
+                EditTextEmptyHolder = false;
+            } else {
+                EditTextEmptyHolder = true;
+            }
+            Register.setEnabled(!first_name.isEmpty() && !last_name.isEmpty() && !dob.isEmpty() && !email.isEmpty() && !pW.isEmpty()
+            && !cPW.isEmpty());
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
+
+    private void updateLabel() {
+        String myFormat = "MM/dd/yy";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         dateOfBirth.setText(sdf.format(myCalendar.getTime()));
     }
 
-    // SQLite database build method.
     public void SQLiteDataBaseBuild() {
         sqLiteDatabaseObj = openOrCreateDatabase(SqliteHelperClass.DATABASE_NAME, Context.MODE_PRIVATE, null);
     }
 
-    // SQLite table build method.
     public void SQLiteTableBuild() {
         sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SqliteHelperClass.TABLE_NAME + "(" + SqliteHelperClass.Table_Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SqliteHelperClass.Table_Column_1_fName + " VARCHAR, " + SqliteHelperClass.Table_Column_2_lName + " VARCHAR, " + SqliteHelperClass.Table_Column_3_Dob + " VARCHAR, " + SqliteHelperClass.Table_Column_4_email + " VARCHAR, " + SqliteHelperClass.Table_Column_5_phone + " VARCHAR, " + SqliteHelperClass.Table_Column_6_PW + " VARCHAR, " + SqliteHelperClass.Table_Column_7_CPW + " VARCHAR, " + SqliteHelperClass.Table_Column_8_GNDR + " VARCHAR);");
     }
-
-    // Insert data into SQLite database method.
     @SuppressLint("UseCompatLoadingForDrawables")
     public void InsertDataIntoSQLiteDatabase() {
-        // If editText is not empty then this block will executed.
         if (EditTextEmptyHolder == true) {
-            // SQLite query to insert data into table.
             SQLiteDataBaseQueryHolder = "INSERT INTO " + SqliteHelperClass.TABLE_NAME + " (firstname,lastname,dateofbirth,emailaddress,phonenumber,password,confirmpassword,gender) VALUES('" + first_name + "', '" + last_name + "', '" + dob + "', '" + email + "', '" + phone + "',  '" + pW + "', '" + cPW + "', '" + gndr + "');";
-            // Executing query.
             sqLiteDatabaseObj.execSQL(SQLiteDataBaseQueryHolder);
-            // Closing SQLite database object.
             sqLiteDatabaseObj.close();
-            // Printing toast message after done inserting.
             Toast.makeText(Registration.this, "User Registered Successfully", Toast.LENGTH_LONG).show();
             Register.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.confirm_tv_border));
             tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
             tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
         }
-        // This block will execute if any of the registration EditText is empty.
         else {
-
-            // Printing toast message if any of EditText is empty.
             Toast.makeText(Registration.this, "Please Fill All The Required Fields.", Toast.LENGTH_SHORT).show();
-
         }
-
     }
 
     // Empty edittext after done inserting process method.
@@ -198,9 +216,7 @@ public class Registration extends AppCompatActivity {
     // Method to check EditText is empty or Not.
     public void CheckEditTextStatus() {
         // Getting value from All EditText and storing into String Variables.
-        first_name = firstName.getText().toString();
-        last_name = lastName.getText().toString();
-        phone = phoneNumber.getText().toString();
+
         String regex = "\\d{10}";
         Pattern pattern = Pattern.compile(regex);
         //Creating a Matcher object
@@ -214,19 +230,9 @@ public class Registration extends AppCompatActivity {
         email = Email.getText().toString();
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         if (email.trim().matches(emailPattern)) {
-            Toast.makeText(getApplicationContext(), "valid email address", Toast.LENGTH_SHORT).show();
+            Log.d("Rahul", "Valid email");
         } else {
             Toast.makeText(getApplicationContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
-        }
-        pW = Password.getText().toString();
-        cPW = confirmPassword.getText().toString();
-        dob = dateOfBirth.getText().toString();
-        if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
-                || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob) || !textViewIsClicked) {
-
-            EditTextEmptyHolder = false;
-        } else {
-            EditTextEmptyHolder = true;
         }
     }
 

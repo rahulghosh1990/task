@@ -26,7 +26,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHo
 
     @Override
     public DemoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        //inflate the layout file
         View groceryProductView = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_product_card, parent, false);
         DemoViewHolder gvh = new DemoViewHolder(groceryProductView);
         return gvh;
