@@ -1,27 +1,20 @@
 package com.example.singin.presentation;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.singin.DemoModel;
 import com.example.singin.DeshboardContract;
 import com.example.singin.R;
 import com.example.singin.model.Entities;
-import com.example.singin.model.Pagination;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,13 +22,13 @@ import java.util.List;
 public class UserInterface extends AppCompatActivity implements DeshboardContract.View {
 
     private static final String TAG = "MovieListActivity";
-    private MovieListPresenter movieListPresenter;
-    private RecyclerView rvMovieList;
+    private MyPresenter myPresenter;
+    private RecyclerView myreCyclerView;
     private Entities entities;
-    private CustomAdapter moviesAdapter;
-    //private ProgressBar pbLoading;
+    private CustomAdapter customAdapter;
+    private ProgressBar pbLoading;
     private TextView tvEmptyView;
-
+    private List<DemoModel> mProductList;
 
     //Constants for load more
     private int previousTotal = 0;
@@ -50,23 +43,30 @@ public class UserInterface extends AppCompatActivity implements DeshboardContrac
         setContentView(R.layout.activity_user_interface);
         initUI();
         //Initializing presenter
-        movieListPresenter = new MovieListPresenter(this);
+        myPresenter = new MyPresenter(this);
 
-        movieListPresenter.requestDataFromServer();
+        myPresenter.requestDataFromServer();
     }
 
     private void initUI() {
-        rvMovieList = findViewById(R.id.my_recycler_view);
-        entities = new Entities();
-       // moviesAdapter = new CustomAdapter(entities);
-        mLayoutManager = new LinearLayoutManager(this);
-        rvMovieList.setLayoutManager(mLayoutManager);
-        rvMovieList.setItemAnimator(new DefaultItemAnimator());
+        myreCyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        //mRecyclerView.setHasFixedSize(true);
+        myreCyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //Populate the products
+        mProductList = new ArrayList<>();
+        mProductList.add(new DemoModel("Demo1",R.drawable.ic_launcher_background,"Rs. 150", "1 kg", "5"));
+        mProductList.add(new DemoModel("Demo2",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
+        mProductList.add(new DemoModel("Demo3",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
+        mProductList.add(new DemoModel("Demo4",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
+        mProductList.add(new DemoModel("Demo5",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
+        //set adapter to recyclerview
+        customAdapter = new CustomAdapter(mProductList,this);
+        myreCyclerView.setAdapter(customAdapter);
        // rvMovieList.setAdapter(moviesAdapter);
        // pbLoading = findViewById(R.id.prgr_br);
     }
 
- /*   @Override
+    @Override
     public void showProgress() {
 
         pbLoading.setVisibility(View.VISIBLE);
@@ -76,17 +76,8 @@ public class UserInterface extends AppCompatActivity implements DeshboardContrac
     public void hideProgress() {
 
         pbLoading.setVisibility(View.GONE);
-    }*/
-
-    @Override
-    public void showProgress() {
-
     }
 
-    @Override
-    public void hideProgress() {
-
-    }
 
     @Override
     public void setDataToRecyclerView(Entities entities) {
@@ -104,7 +95,7 @@ public class UserInterface extends AppCompatActivity implements DeshboardContrac
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        movieListPresenter.onDestroy();
+        myPresenter.onDestroy();
     }
 
 

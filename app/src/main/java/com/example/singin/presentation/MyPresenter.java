@@ -6,13 +6,13 @@ import com.example.singin.model.network.FetchDetailsFromServer;
 
 import java.util.List;
 
-public class MovieListPresenter implements DeshboardContract.Presenter, DeshboardContract.Model.OnFinishedListner {
+public class MyPresenter implements DeshboardContract.Presenter, DeshboardContract.Model.OnFinishedListner {
 
     private DeshboardContract.View movieListView;
 
     private DeshboardContract.Model movieListModel;
 
-    public MovieListPresenter(DeshboardContract.View movieListView) {
+    public MyPresenter(DeshboardContract.View movieListView) {
         this.movieListView = movieListView;
         movieListModel = new FetchDetailsFromServer();
     }
@@ -35,22 +35,11 @@ public class MovieListPresenter implements DeshboardContract.Presenter, Deshboar
 
     }
 
-/*    @Override
+    @Override
     public void onFinished(Entities entities) {
-        movieListView.setDataToRecyclerView(entities);
-      *//*  if (movieListView != null) {
+        if (movieListView != null) {
             movieListView.hideProgress();
-        }*//*
-    }
-
-    @Override
-    public void onFinished(Entities entities) {
-
-    }*/
-
-    @Override
-    public void onFinished(Entities entities) {
-
+        }
     }
 
     @Override
