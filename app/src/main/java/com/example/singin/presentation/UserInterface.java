@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.singin.DemoModel;
+import com.example.singin.model.DemoModel;
 import com.example.singin.DeshboardContract;
 import com.example.singin.R;
 import com.example.singin.model.Entities;
@@ -69,13 +68,13 @@ public class UserInterface extends AppCompatActivity implements DeshboardContrac
     @Override
     public void showProgress() {
 
-        pbLoading.setVisibility(View.VISIBLE);
+        //pbLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideProgress() {
 
-        pbLoading.setVisibility(View.GONE);
+       // pbLoading.setVisibility(View.GONE);
     }
 
 

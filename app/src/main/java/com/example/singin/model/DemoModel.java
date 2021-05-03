@@ -1,4 +1,4 @@
-package com.example.singin;
+package com.example.singin.model;
 
 public class DemoModel {
     public int productImage;

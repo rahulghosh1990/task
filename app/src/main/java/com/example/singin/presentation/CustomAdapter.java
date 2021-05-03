@@ -1,6 +1,5 @@
 package com.example.singin.presentation;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,14 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.singin.DemoModel;
+import com.example.singin.model.DemoModel;
 import com.example.singin.R;
-import com.example.singin.model.Entities;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHolder>{
