@@ -2,14 +2,12 @@ package com.example.singin.model;
 
 public class DemoModel {
     public int productImage;
-    public String productName;
     public String productPrice;
     public String productWeight;
     public String productQty;
 
-    public DemoModel(String productName, int productImage, String productPrice, String productWeight, String productQty) {
+    public DemoModel( int productImage, String productPrice, String productWeight, String productQty) {
         this.productImage = productImage;
-        this.productName = productName;
         this.productPrice = productPrice;
         this.productWeight = productWeight;
         this.productQty = productQty;
@@ -45,13 +43,5 @@ public class DemoModel {
 
     public void setProductImage(int productImage) {
         this.productImage = productImage;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 }

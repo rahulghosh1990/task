@@ -23,31 +23,9 @@ public class MyPresenter implements DeshboardContract.Presenter, DeshboardContra
     }
 
     @Override
-    public void getMoreData(int pageNo) {
-
-        movieListModel.getresourses(this);
-    }
-
-    @Override
     public void requestDataFromServer() {
-
         movieListModel.getresourses(this);
 
     }
 
-    @Override
-    public void onFinished(Entities entities) {
-        if (movieListView != null) {
-            movieListView.hideProgress();
-        }
-    }
-
-    @Override
-    public void onFailure(Throwable t) {
-
-        movieListView.onResponseFailure(t);
-        if (movieListView != null) {
-            movieListView.hideProgress();
-        }
-    }
 }

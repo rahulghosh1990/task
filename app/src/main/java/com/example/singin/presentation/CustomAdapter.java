@@ -34,16 +34,14 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHo
     @Override
     public void onBindViewHolder(DemoViewHolder holder, final int position) {
         holder.imageProductImage.setImageResource(demoModels.get(position).getProductImage());
-        holder.txtProductName.setText(demoModels.get(position).getProductName());
         holder.txtProductPrice.setText(demoModels.get(position).getProductPrice());
+        holder.txtProductName.setText(demoModels.get(position).getProductQty());
         holder.txtProductWeight.setText(demoModels.get(position).getProductWeight());
-        holder.txtProductQty.setText(demoModels.get(position).getProductQty());
-
         holder.imageProductImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String productName = demoModels.get(position).getProductName().toString();
-                Toast.makeText(context, productName + " is selected", Toast.LENGTH_SHORT).show();
+                String productPrice = demoModels.get(position).getProductPrice();
+                Toast.makeText(context, productPrice + " is selected", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -58,13 +56,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHo
         TextView txtProductName;
         TextView txtProductPrice;
         TextView txtProductWeight;
-        TextView txtProductQty;
         public DemoViewHolder(View view) {
             super(view);
-            imageProductImage=view.findViewById(R.id.idProductImage);
-            txtProductName=view.findViewById(R.id.idProductName);
-            txtProductPrice = view.findViewById(R.id.idProductPrice);
-            txtProductWeight = view.findViewById(R.id.idProductWeight);
-            txtProductQty = view.findViewById(R.id.idProductQty);
+            imageProductImage=view.findViewById(R.id.imageView);
+            txtProductName=view.findViewById(R.id.textViewName);
+            txtProductPrice = view.findViewById(R.id.mynamr);
+            txtProductWeight = view.findViewById(R.id.textViewVersion);
         }
     }}

@@ -23,16 +23,8 @@ public class DeshBoard extends AppCompatActivity implements DeshboardContract.Vi
     private static final String TAG = "MovieListActivity";
     private MyPresenter myPresenter;
     private RecyclerView myreCyclerView;
-    private Entities entities;
     private CustomAdapter customAdapter;
-    private ProgressBar pbLoading;
-    private TextView tvEmptyView;
     private List<DemoModel> mProductList;
-    private int previousTotal = 0;
-    private boolean loading = true;
-    int firstVisibleItem, visibleItemCount, totalItemCount;
-    private LinearLayoutManager mLayoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,39 +40,25 @@ public class DeshBoard extends AppCompatActivity implements DeshboardContract.Vi
         myreCyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
         myreCyclerView.setLayoutManager(new LinearLayoutManager(this));
         mProductList = new ArrayList<>();
-        mProductList.add(new DemoModel("Demo1",R.drawable.ic_launcher_background,"Rs. 150", "1 kg", "5"));
-        mProductList.add(new DemoModel("Demo2",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
-        mProductList.add(new DemoModel("Demo3",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
-        mProductList.add(new DemoModel("Demo4",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
-        mProductList.add(new DemoModel("Demo5",R.drawable.ic_launcher_background,"Rs. 250", "500 gm", "2"));
+        mProductList.add(new DemoModel(R.drawable.comment,"u Rapid", "Today, 4.57pm", "50"));
+        mProductList.add(new DemoModel(R.drawable.gas_station,"g", "Today, 4.57pm", "100"));
+        mProductList.add(new DemoModel(R.drawable.smartphone,"min", "Today, 4.57pm", "30"));
+        mProductList.add(new DemoModel(R.drawable.messenger,"mgdl", "Today, 4.57pm", "200"));
+        mProductList.add(new DemoModel(R.drawable.headphone_symbol,"u Rapid", "Today, 4.57pm", "50"));
+        mProductList.add(new DemoModel(R.drawable.gas_station,"g", "Today, 4.57pm", "200"));
         customAdapter = new CustomAdapter(mProductList,this);
         myreCyclerView.setAdapter(customAdapter);
     }
 
     @Override
-    public void showProgress() {
-
-        //pbLoading.setVisibility(View.VISIBLE);
-    }
-
-    @Override
-    public void hideProgress() {
-
-       // pbLoading.setVisibility(View.GONE);
-    }
-
-
-    @Override
-    public void setDataToRecyclerView(Entities entities) {
-
-    }
-
-
-    @Override
     public void onResponseFailure(Throwable throwable) {
-
         Log.e(TAG, throwable.getMessage());
         Toast.makeText(this, "Communication Error", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onSuccess() {
+        Toast.makeText(this, "SuccessFull", Toast.LENGTH_LONG).show();
     }
 
     @Override
