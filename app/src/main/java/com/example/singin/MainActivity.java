@@ -122,9 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
         else {
-
             Toast.makeText(MainActivity.this,"UserName or Password is Wrong, Please Try Again.",Toast.LENGTH_LONG).show();
-
         }
         TempPassword = "NOT_FOUND" ;
 

@@ -26,7 +26,7 @@ public class MainPresenterImpl implements MainContract.presenter, MainContract.G
     public void onRefreshButtonClick() {
 
         if(mainView != null){
-            mainView.showProgress();
+            //mainView.showProgress();
         }
         getNoticeIntractor.getNoticeArrayList(this);
 

@@ -99,6 +99,7 @@
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_dob"
+            android:focusable="true"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -149,6 +150,7 @@
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_phone"
             android:inputType="number"
+            android:maxLength="10"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -223,7 +225,7 @@
             android:password="true"
             app:boxStrokeWidth="0dp"
             android:maxLines="1"
-            android:inputType="number"
+            android:inputType="textEmailAddress"
 
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />
@@ -248,7 +250,7 @@
             android:layout_marginTop="16dp"
             app:boxStrokeWidth="0dp"
             android:id="@+id/tie_cpw"
-            android:inputType="number"
+            android:inputType="textEmailAddress"
             android:maxLines="1"
             app:boxStrokeWidthFocused="0dp"
             tools:layout_editor_absoluteX="0dp" />

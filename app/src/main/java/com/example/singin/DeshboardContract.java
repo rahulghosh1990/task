@@ -1,5 +1,6 @@
 package com.example.singin;
 
+import com.example.singin.model.Entities;
 import com.example.singin.model.Pagination;
 
 import java.util.List;
@@ -7,21 +8,22 @@ import java.util.List;
 public interface DeshboardContract {
     interface Model{
         interface OnFinishedListner{
-            void onFinished(Pagination pagination);
+            void onFinished(Entities entities);
             void onFailure(Throwable t);
         }
-        void getResourses(OnFinishedListner onFinishedListner);
+        void getresourses(OnFinishedListner onFinishedListner);
     }
 
     interface View{
         void showProgress();
         void hideProgress();
-        void setDataToRecyclerView(Pagination pagination);
+        void setDataToRecyclerView(Entities entities);
         void onResponseFailure(Throwable throwable);
     }
 
     interface Presenter{
         void onDestroy();
+        void getMoreData(int pageNo);
         void requestDataFromServer();
     }
 }

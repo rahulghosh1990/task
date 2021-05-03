@@ -14,9 +14,8 @@ import retrofit2.Response;
 
 public class FetchDetailsFromServer implements DeshboardContract.Model {
     int total, page;
-
     @Override
-    public void getResourses(OnFinishedListner onFinishedListner) {
+    public void getresourses(OnFinishedListner onFinishedListner) {
         ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
         Call<Entities> call = apiservice.getresourses();
         call.enqueue(new Callback<Entities>() {
