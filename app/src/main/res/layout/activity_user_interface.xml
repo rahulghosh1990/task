@@ -5,28 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".presentation.DeshBoard"
-    >
-
+    android:background="#f7f7e4">
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_recycler_view"
         android:layout_width="match_parent"
-        android:layout_marginTop="35dp"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="16dp" />
-
-    <TextView
-        android:id="@+id/Header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:text="DashBoard"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

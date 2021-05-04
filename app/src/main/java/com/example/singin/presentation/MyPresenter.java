@@ -8,18 +8,18 @@ import java.util.List;
 
 public class MyPresenter implements DeshboardContract.Presenter, DeshboardContract.Model.OnFinishedListner {
 
-    private DeshboardContract.View movieListView;
+    private DeshboardContract.View list;
 
     private DeshboardContract.Model movieListModel;
 
-    public MyPresenter(DeshboardContract.View movieListView) {
-        this.movieListView = movieListView;
+    public MyPresenter(DeshboardContract.View list) {
+      
         movieListModel = new FetchDetailsFromServer();
     }
 
     @Override
     public void onDestroy() {
-        this.movieListView = null;
+        this.list = null;
     }
 
     @Override

@@ -12,7 +12,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="14dp"
-        android:layout_marginTop="40dp"
         android:text="Already have an account? "
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -274,21 +273,4 @@
         android:enabled="false"
         android:id="@+id/btn_continue"
         android:gravity="center"/>
-
-    <TextView
-        android:id="@+id/Header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="4dp"
-        android:text="Registration"
-        android:gravity="center"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

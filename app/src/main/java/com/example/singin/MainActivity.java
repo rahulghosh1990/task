@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
+        setTitle(R.string.login);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         LogInButton = findViewById(R.id.buttonLogin);

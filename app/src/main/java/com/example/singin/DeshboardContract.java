@@ -10,11 +10,12 @@ public interface DeshboardContract {
         interface OnFinishedListner{
         }
         void getresourses(OnFinishedListner onFinishedListner);
+
+
     }
 
     interface View{
         void onResponseFailure(Throwable throwable);
-        void onSuccess();
     }
 
     interface Presenter{

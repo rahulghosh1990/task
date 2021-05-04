@@ -58,9 +58,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHo
         TextView txtProductWeight;
         public DemoViewHolder(View view) {
             super(view);
-            imageProductImage=view.findViewById(R.id.imageView);
-            txtProductName=view.findViewById(R.id.textViewName);
-            txtProductPrice = view.findViewById(R.id.mynamr);
-            txtProductWeight = view.findViewById(R.id.textViewVersion);
+            imageProductImage=view.findViewById(R.id.imageview);
+            txtProductName=view.findViewById(R.id.tv_left);
+            txtProductPrice = view.findViewById(R.id.tv_right);
+            txtProductWeight = view.findViewById(R.id.tv_bottom);
         }
     }}

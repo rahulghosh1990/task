@@ -22,18 +22,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Registration extends AppCompatActivity {
 
     TextInputEditText Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword;
-    TextView  tv_male, tv_female,Header;
+    TextView tv_male, tv_female, Header;
     Button Register;
     TextView log_in;
     String gndr;
@@ -50,7 +52,9 @@ public class Registration extends AppCompatActivity {
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        getSupportActionBar().hide();
+        setTitle(R.string.regis);
+        /*Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         Register = findViewById(R.id.btn_continue);
@@ -104,7 +108,7 @@ public class Registration extends AppCompatActivity {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-                textViewIsClicked=true;
+                textViewIsClicked = true;
                 tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
                 tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
                 gndr = "Male";
@@ -116,7 +120,7 @@ public class Registration extends AppCompatActivity {
             @SuppressLint("UseCompatLoadingForDrawables")
             @Override
             public void onClick(View v) {
-                textViewIsClicked=true;
+                textViewIsClicked = true;
                 tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
                 tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
                 gndr = "Female";
@@ -148,6 +152,7 @@ public class Registration extends AppCompatActivity {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
         }
+
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
@@ -157,7 +162,7 @@ public class Registration extends AppCompatActivity {
             email = Email.getText().toString().trim();
             pW = Password.getText().toString().trim();
             cPW = confirmPassword.getText().toString().trim();
-            phone=phoneNumber.getText().toString().trim();
+            phone = phoneNumber.getText().toString().trim();
             if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
                     || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob) || !textViewIsClicked) {
 
@@ -166,8 +171,9 @@ public class Registration extends AppCompatActivity {
                 EditTextEmptyHolder = true;
             }
             Register.setEnabled(!first_name.isEmpty() && !last_name.isEmpty() && !dob.isEmpty() && !email.isEmpty() && !pW.isEmpty()
-            && !cPW.isEmpty());
+                    && !cPW.isEmpty());
         }
+
         @Override
         public void afterTextChanged(Editable s) {
         }
@@ -186,6 +192,7 @@ public class Registration extends AppCompatActivity {
     public void SQLiteTableBuild() {
         sqLiteDatabaseObj.execSQL("CREATE TABLE IF NOT EXISTS " + SqliteHelperClass.TABLE_NAME + "(" + SqliteHelperClass.Table_Column_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + SqliteHelperClass.Table_Column_1_fName + " VARCHAR, " + SqliteHelperClass.Table_Column_2_lName + " VARCHAR, " + SqliteHelperClass.Table_Column_3_Dob + " VARCHAR, " + SqliteHelperClass.Table_Column_4_email + " VARCHAR, " + SqliteHelperClass.Table_Column_5_phone + " VARCHAR, " + SqliteHelperClass.Table_Column_6_PW + " VARCHAR, " + SqliteHelperClass.Table_Column_7_CPW + " VARCHAR, " + SqliteHelperClass.Table_Column_8_GNDR + " VARCHAR);");
     }
+
     @SuppressLint("UseCompatLoadingForDrawables")
     public void InsertDataIntoSQLiteDatabase() {
         if (EditTextEmptyHolder == true) {
@@ -196,8 +203,7 @@ public class Registration extends AppCompatActivity {
             Register.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.confirm_tv_border));
             tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
             tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
-        }
-        else {
+        } else {
             Toast.makeText(Registration.this, "Please Fill All The Required Fields.", Toast.LENGTH_SHORT).show();
         }
     }
