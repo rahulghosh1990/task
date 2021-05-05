@@ -7,16 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.example.singin.model.DemoModel;
 import com.example.singin.DeshboardContract;
 import com.example.singin.R;
-import com.example.singin.model.Entities;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,15 +55,26 @@ public class DeshBoard extends AppCompatActivity implements DeshboardContract.Vi
         myreCyclerView.setAdapter(customAdapter);
     }
 
-    @Override
-    public void onResponseFailure(Throwable throwable) {
-        Log.e(TAG, throwable.getMessage());
-        Toast.makeText(this, "Communication Error", Toast.LENGTH_LONG).show();
-    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         myPresenter.onDestroy();
     }
+
+  /*  @Override
+    public void showDialog() {
+
+    }
+
+    @Override
+    public void hideDialog() {
+
+    }*/
+
+ /*   @Override
+    public void setupContentList(ArrayList<DemoModel> list) {
+
+    }*/
+
 }

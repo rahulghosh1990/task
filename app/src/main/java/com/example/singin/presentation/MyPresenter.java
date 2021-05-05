@@ -1,6 +1,10 @@
 package com.example.singin.presentation;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
 import com.example.singin.DeshboardContract;
+import com.example.singin.SqliteHelperClass;
 import com.example.singin.model.Entities;
 import com.example.singin.model.network.FetchDetailsFromServer;
 
@@ -13,7 +17,6 @@ public class MyPresenter implements DeshboardContract.Presenter, DeshboardContra
     private DeshboardContract.Model movieListModel;
 
     public MyPresenter(DeshboardContract.View list) {
-      
         movieListModel = new FetchDetailsFromServer();
     }
 
@@ -22,10 +25,12 @@ public class MyPresenter implements DeshboardContract.Presenter, DeshboardContra
         this.list = null;
     }
 
+
+
+
     @Override
     public void requestDataFromServer() {
         movieListModel.getresourses(this);
-
     }
 
 }

@@ -14,9 +14,11 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.singin.presentation.DeshBoard;
+import com.example.singin.presentation.LoginFuctionPresenter;
+import com.example.singin.presentation.LoginPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LoginPresenter.View {
 
     Button LogInButton, RegisterButton ;
     TextInputEditText Email, Password ;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     Cursor cursor;
     String TempPassword = "NOT_FOUND" ;
     public static final String UserEmail = "";
-
+    private LoginFuctionPresenter myPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle(R.string.login);
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Email = findViewById(R.id.editEmail);
         Password = findViewById(R.id.editPassword);
         sqLiteHelper = new SqliteHelperClass(this);
+        myPresenter = new LoginFuctionPresenter(sqLiteHelper, (LoginPresenter.View) this);
         Email.addTextChangedListener(loginTextWatcher);
         Password.addTextChangedListener(loginTextWatcher);
         //Adding click listener to log in button.
@@ -45,12 +48,10 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // Calling EditText is empty or no method.
                 CheckEditTextStatus();
-
                 // Calling login method.
                 LoginFunction();
             }
         });
-
     }
     public void onBackPressed() {
         super.onBackPressed();
@@ -59,8 +60,10 @@ public class MainActivity extends AppCompatActivity {
     // Login function starts from here.
     public void LoginFunction(){
         if(EditTextEmptyHolder) {
+            myPresenter.handleLogin( EmailHolder);
+
             // Opening SQLite database write permission.
-            sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
+     /*       sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
             // Adding search email query to cursor.
             cursor = sqLiteDatabaseObj.query(SqliteHelperClass.TABLE_NAME, null, " " + SqliteHelperClass.Table_Column_4_email + "=?", new String[]{EmailHolder}, null, null, null);
             while (cursor.moveToNext()) {
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                     // Closing cursor.
                     cursor.close();
                 }
-            }
+            }*/
             // Calling method to check final result ..
             CheckFinalResult();
         }
@@ -89,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
             EmailHolder = Email.getText().toString().trim();
             PasswordHolder = Password.getText().toString().trim();
+
             LogInButton.setEnabled(!EmailHolder.isEmpty() && !PasswordHolder.isEmpty());
         }
         @Override
@@ -109,8 +113,6 @@ public class MainActivity extends AppCompatActivity {
         else {
             EditTextEmptyHolder = true ;
         }
-
-
     }
     public void CheckFinalResult(){
         if(TempPassword.equalsIgnoreCase(PasswordHolder))
@@ -123,5 +125,11 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(MainActivity.this,"UserName or Password is Wrong, Please Try Again.",Toast.LENGTH_LONG).show();
         }
         TempPassword = "NOT_FOUND" ;
+    }
+
+
+    @Override
+    public void getpassword(String ps) {
+        TempPassword=ps;
     }
 }
