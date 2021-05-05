@@ -6,4 +6,5 @@ public interface LoginPresenter {
    interface View{
         void getpassword(String ps);
     }
+
 }

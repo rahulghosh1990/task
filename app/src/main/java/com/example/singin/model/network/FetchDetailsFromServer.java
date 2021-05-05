@@ -14,6 +14,7 @@ import retrofit2.Response;
 
 public class FetchDetailsFromServer implements DeshboardContract.Model {
     int total, page;
+
     @Override
     public void getresourses(OnFinishedListner onFinishedListner) {
         ApiInterface apiservice = ApiClient.getClient().create(ApiInterface.class);
@@ -28,6 +29,9 @@ public class FetchDetailsFromServer implements DeshboardContract.Model {
             @Override
             public void onFailure(@NonNull Call<Entities> call, @NonNull Throwable t) {
                 Log.d("RAHUL_ERROR", t.toString());
+                if (t instanceof  RetrofitException){
+                    Log.d("ErrorBody", t.getMessage());
+                }
             }
         });
 

@@ -4,13 +4,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.example.singin.SqliteHelperClass;
+import com.example.singin.model.DemoModel;
+
+import java.util.ArrayList;
 
 public class LoginFuctionPresenter implements LoginPresenter{
     SQLiteDatabase sqLiteDatabaseObj;
     SqliteHelperClass sqLiteHelper;
     Cursor cursor;
     String pw;
-
    LoginPresenter.View view;
     public  LoginFuctionPresenter( SqliteHelperClass sqLiteHelper, View view ){
         this.sqLiteHelper=sqLiteHelper;
@@ -32,4 +34,5 @@ public class LoginFuctionPresenter implements LoginPresenter{
             }
         }
     }
+
 }

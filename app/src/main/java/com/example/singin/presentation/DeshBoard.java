@@ -7,10 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.singin.model.DemoModel;
 import com.example.singin.DeshboardContract;
 import com.example.singin.R;
+import com.example.singin.model.Entities;
+import com.example.singin.model.network.FetchDetailsFromServer;
+
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,22 +63,16 @@ public class DeshBoard extends AppCompatActivity implements DeshboardContract.Vi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        myPresenter.onDestroy();
     }
 
-  /*  @Override
-    public void showDialog() {
 
+    @Override
+    public void showProgress() {
+        //Progressbar could show
     }
 
     @Override
-    public void hideDialog() {
-
-    }*/
-
- /*   @Override
-    public void setupContentList(ArrayList<DemoModel> list) {
-
-    }*/
-
+    public void hideProgress() {
+// could hide progressbar
+    }
 }

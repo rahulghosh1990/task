@@ -30,7 +30,6 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.DemoViewHo
         DemoViewHolder gvh = new DemoViewHolder(groceryProductView);
         return gvh;
     }
-
     @Override
     public void onBindViewHolder(DemoViewHolder holder, final int position) {
         holder.imageProductImage.setImageResource(demoModels.get(position).getProductImage());
