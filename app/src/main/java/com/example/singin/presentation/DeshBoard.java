@@ -66,13 +66,4 @@ public class DeshBoard extends AppCompatActivity implements DeshboardContract.Vi
     }
 
 
-    @Override
-    public void showProgress() {
-        //Progressbar could show
-    }
-
-    @Override
-    public void hideProgress() {
-// could hide progressbar
-    }
 }
