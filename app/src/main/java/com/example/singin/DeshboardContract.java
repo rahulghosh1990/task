@@ -14,6 +14,7 @@ public interface DeshboardContract {
         void getresourses(OnFinishedListner onFinishedListner);
     }
     interface View {
+
     }
     interface Presenter {
         void requestDataFromServer();
