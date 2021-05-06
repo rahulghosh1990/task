@@ -3,10 +3,7 @@ package com.example.singin.presentation;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.example.singin.SqliteHelperClass;
-import com.example.singin.model.DemoModel;
-
-import java.util.ArrayList;
+import com.example.singin.view.SqliteHelperClass;
 
 public class LoginFuctionPresenter implements LoginPresenter {
     SQLiteDatabase sqLiteDatabaseObj;

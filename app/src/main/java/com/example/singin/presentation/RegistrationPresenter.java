@@ -2,10 +2,8 @@ package com.example.singin.presentation;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
-import com.example.singin.Registration;
-import com.example.singin.SqliteHelperClass;
+import com.example.singin.view.SqliteHelperClass;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegistrationPresenter implements  RegistrationContract {
@@ -21,10 +19,7 @@ public class RegistrationPresenter implements  RegistrationContract {
         this.view = view;
 
     }
-    @Override
-    public void registrat() {
 
-    }
 
     @Override
     public void getediitextData(TextInputEditText Email, TextInputEditText Password, TextInputEditText firstName, TextInputEditText lastName, TextInputEditText phoneNumber, TextInputEditText dateOfBirth, TextInputEditText confirmPassword) {
@@ -35,7 +30,7 @@ public class RegistrationPresenter implements  RegistrationContract {
         p_W = Password.getText().toString().trim();
         c_PW = confirmPassword.getText().toString().trim();
         p_hone = phoneNumber.getText().toString().trim();
-        view.setEdditTextData(firstname_,lastname_,do_b,e_mail,p_W,c_PW,p_hone);
+        //view.setEdditTextData(firstname_,lastname_,do_b,e_mail,p_W,c_PW,p_hone);
     }
 
 
@@ -49,9 +44,6 @@ public class RegistrationPresenter implements  RegistrationContract {
         Email.getText().clear();
         Password.getText().clear();
     }
-
-
-
     @Override
     public void CheckingEmailAlreadyExistsOrNot(String email) {
         // Opening SQLite database write permission.
@@ -59,15 +51,9 @@ public class RegistrationPresenter implements  RegistrationContract {
         // Adding search email query to cursor.
         cursor = sqLiteDatabaseObj.query(SqliteHelperClass.TABLE_NAME, null, " " + SqliteHelperClass.Table_Column_4_email + "=?", new String[]{email}, null, null, null);
         while (cursor.moveToNext()) {
-
             if (cursor.isFirst()) {
-
                 cursor.moveToFirst();
-
-                // If Email is already exists then Result variable value set as Email Found.
                 F_Result = "Email Found";
-
-                // Closing cursor.
                 cursor.close();
                 view.getpassword(F_Result);
             }

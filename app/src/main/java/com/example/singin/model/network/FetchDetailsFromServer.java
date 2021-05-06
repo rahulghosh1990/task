@@ -4,9 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.singin.DeshboardContract;
+import com.example.singin.view.DeshboardContract;
 import com.example.singin.model.Entities;
-import com.example.singin.model.Pagination;
 
 import retrofit2.Call;
 import retrofit2.Callback;

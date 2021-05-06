@@ -1,4 +1,4 @@
-package com.example.singin;
+package com.example.singin.view;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

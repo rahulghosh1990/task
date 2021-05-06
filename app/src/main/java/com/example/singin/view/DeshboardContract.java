@@ -1,4 +1,4 @@
-package com.example.singin;
+package com.example.singin.view;
 
 import com.example.singin.model.DemoModel;
 import com.example.singin.model.Entities;

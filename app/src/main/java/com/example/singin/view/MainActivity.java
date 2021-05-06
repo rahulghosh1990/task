@@ -1,4 +1,4 @@
-package com.example.singin;
+package com.example.singin.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.singin.R;
 import com.example.singin.presentation.DeshBoard;
 import com.example.singin.presentation.LoginFuctionPresenter;
 import com.example.singin.presentation.LoginPresenter;

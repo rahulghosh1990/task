@@ -1,10 +1,8 @@
 package com.example.singin.presentation;
 
-import com.example.singin.DeshboardContract;
+import com.example.singin.view.DeshboardContract;
 import com.example.singin.R;
-import com.example.singin.SqliteHelperClass;
 import com.example.singin.model.DemoModel;
-import com.example.singin.model.network.FetchDetailsFromServer;
 
 import java.util.ArrayList;
 import java.util.List;

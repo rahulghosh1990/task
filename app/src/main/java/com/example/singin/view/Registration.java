@@ -1,4 +1,4 @@
-package com.example.singin;
+package com.example.singin.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -9,20 +9,17 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.singin.R;
 import com.example.singin.presentation.RegistrationContract;
 import com.example.singin.presentation.RegistrationPresenter;
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,7 +27,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -138,7 +134,14 @@ public class Registration extends AppCompatActivity implements RegistrationContr
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            registrationPresenter.getediitextData(firstName, lastName, dateOfBirth, Email, Password, confirmPassword, phoneNumber);
+            //registrationPresenter.getediitextData(firstName, lastName, dateOfBirth, Email, Password, confirmPassword, phoneNumber);
+        first_name = firstName.getText().toString().trim();
+            last_name = lastName.getText().toString().trim();
+            dob = dateOfBirth.getText().toString().trim();
+            email = Email.getText().toString().trim();
+            pW = Password.getText().toString().trim();
+            cPW = confirmPassword.getText().toString().trim();
+            phone = phoneNumber.getText().toString().trim();
             if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
                     || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob) || !textViewIsClicked) {
                 EditTextEmptyHolder = false;
@@ -221,7 +224,7 @@ public class Registration extends AppCompatActivity implements RegistrationContr
         F_Result = ps;
     }
 
-    @Override
+ /*   @Override
     public void setEdditTextData(String firstname_, String lastname_, String do_b, String e_mail, String p_W, String p_hone, String c_PW) {
         first_name = firstname_;
         last_name = lastname_;
@@ -230,7 +233,7 @@ public class Registration extends AppCompatActivity implements RegistrationContr
         pW = p_W;
         phone = p_hone;
         cPW = c_PW;
-    }
+    }*/
 
 
 }

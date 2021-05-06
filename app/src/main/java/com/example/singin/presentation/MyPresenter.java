@@ -1,10 +1,7 @@
 package com.example.singin.presentation;
 
-import com.example.singin.DeshboardContract;
-import com.example.singin.model.Entities;
+import com.example.singin.view.DeshboardContract;
 import com.example.singin.model.network.FetchDetailsFromServer;
-
-import java.util.List;
 
 public class MyPresenter implements DeshboardContract.Presenter, DeshboardContract.Model.OnFinishedListner {
 

@@ -9,7 +9,7 @@ public interface RegistrationContract {
 
     interface View {
         void getpassword(String ps);
-        void setEdditTextData(String firstname_, String lastname_, String do_b, String e_mail, String p_W, String p_hone, String c_PW);
+        //void setEdditTextData(String firstname_, String lastname_, String do_b, String e_mail, String p_W, String p_hone, String c_PW);
 
     }
 }

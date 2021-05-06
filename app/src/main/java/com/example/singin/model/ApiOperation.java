@@ -1,6 +1,6 @@
 package com.example.singin.model;
 
-import com.example.singin.DeshboardContract;
+import com.example.singin.view.DeshboardContract;
 import com.example.singin.model.network.FetchDetailsFromServer;
 
 public class ApiOperation implements DeshboardContract.Model {

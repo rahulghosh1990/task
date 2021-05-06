@@ -7,16 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.example.singin.model.DemoModel;
-import com.example.singin.DeshboardContract;
 import com.example.singin.R;
-import com.example.singin.model.Entities;
 import com.example.singin.model.network.FetchDetailsFromServer;
 
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
