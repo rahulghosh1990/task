@@ -1,8 +1,10 @@
 package com.example.singin.presentation;
 
+import com.example.singin.DeshboardContract;
 import com.example.singin.R;
 import com.example.singin.SqliteHelperClass;
 import com.example.singin.model.DemoModel;
+import com.example.singin.model.network.FetchDetailsFromServer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,12 +12,10 @@ import java.util.List;
 public class PresenterDashboard implements DashboardContract {
     List<DemoModel> list;
     DashboardContract.View view;
-
-    public PresenterDashboard( DashboardContract.View view) {
+    DeshboardContract.Model model;
+    public PresenterDashboard(DashboardContract.View view) {
         this.view = view;
     }
-
-
     @Override
     public void returnData() {
         list = new ArrayList<>();
@@ -26,14 +26,7 @@ public class PresenterDashboard implements DashboardContract {
         list.add(new DemoModel(R.drawable.headphone_symbol, "u Rapid", "Today, 4.57pm", "50"));
         list.add(new DemoModel(R.drawable.gas_station, "g", "Today, 4.57pm", "200"));
 
-   view.getList(list);
+        view.getList(list);
     }
-
-
-   /* @Override
-    public void setData(List<DemoModel> list) {
-
-    }*/
-
 
 }

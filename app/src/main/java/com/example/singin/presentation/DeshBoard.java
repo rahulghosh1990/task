@@ -35,6 +35,7 @@ public class DeshBoard extends AppCompatActivity implements PresenterDashboard.V
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_interface);
         initUI();
+        new FetchDetailsFromServer();
         presenterDashboard = new PresenterDashboard((DashboardContract.View) this);
         presenterDashboard.returnData();
     }

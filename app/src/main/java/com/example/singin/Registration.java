@@ -23,6 +23,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.singin.presentation.RegistrationContract;
+import com.example.singin.presentation.RegistrationPresenter;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.text.SimpleDateFormat;
@@ -32,7 +34,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Registration extends AppCompatActivity {
+public class Registration extends AppCompatActivity implements RegistrationContract.View {
 
     TextInputEditText Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword;
     TextView tv_male, tv_female, Header;
@@ -48,15 +50,63 @@ public class Registration extends AppCompatActivity {
     String F_Result = "Not_Found";
     Calendar myCalendar;
     boolean textViewIsClicked;
+    RegistrationPresenter registrationPresenter;
 
     @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTitle(R.string.regis);
-        /*Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
+        initUi();
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            // TODO Auto-generated method stub
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+            updateLabel();
+        };
+
+        dateOfBirth.setOnClickListener(v -> {
+            // TODO Auto-generated method stub
+            new DatePickerDialog(Registration.this, date, myCalendar
+                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        });
+
+        tv_male.setOnClickListener(v -> {
+            textViewIsClicked = true;
+            tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
+            tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
+            gndr = "Male";
+
+        });
+
+        tv_female.setOnClickListener(v -> {
+            textViewIsClicked = true;
+            tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
+            tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
+            gndr = "Female";
+
+        });
+        log_in.setOnClickListener(v -> {
+            Intent intent = new Intent(Registration.this, MainActivity.class);
+            startActivity(intent);
+        });
+        sqLiteHelper = new SqliteHelperClass(this);
+        registrationPresenter = new RegistrationPresenter(sqLiteHelper, (RegistrationContract.View) this);
+
+        Register.setOnClickListener(view -> {
+            SQLiteDataBaseBuild();
+            SQLiteTableBuild();
+            CheckEditTextStatus();
+            CheckingEmailAlreadyExistsOrNot();
+            registrationPresenter.emptyEdittextAfterInsertion(firstName, lastName, dateOfBirth, phoneNumber, confirmPassword
+                    , Email, Password);
+        });
+    }
+
+    private void initUi() {
         Register = findViewById(R.id.btn_continue);
         Email = findViewById(R.id.tie_email);
         tv_male = findViewById(R.id.tv_male);
@@ -79,73 +129,6 @@ public class Registration extends AppCompatActivity {
         confirmPassword.addTextChangedListener(loginTextWatcher);
         tv_male.addTextChangedListener(loginTextWatcher);
         tv_female.addTextChangedListener(loginTextWatcher);
-        DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear,
-                                  int dayOfMonth) {
-                // TODO Auto-generated method stub
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                updateLabel();
-            }
-
-        };
-
-        dateOfBirth.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                // TODO Auto-generated method stub
-                new DatePickerDialog(Registration.this, date, myCalendar
-                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        tv_male.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                textViewIsClicked = true;
-                tv_male.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
-                tv_female.setBackground(getResources().getDrawable(R.drawable.tv_border));
-                gndr = "Male";
-
-            }
-        });
-
-        tv_female.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("UseCompatLoadingForDrawables")
-            @Override
-            public void onClick(View v) {
-                textViewIsClicked = true;
-                tv_female.setBackgroundDrawable(ContextCompat.getDrawable(getApplicationContext(), R.drawable.tv_border_clicked));
-                tv_male.setBackground(getResources().getDrawable(R.drawable.tv_border));
-                gndr = "Female";
-
-            }
-        });
-        log_in.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Registration.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        sqLiteHelper = new SqliteHelperClass(this);
-
-        Register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                SQLiteDataBaseBuild();
-                SQLiteTableBuild();
-                CheckEditTextStatus();
-                CheckingEmailAlreadyExistsOrNot();
-                EmptyEditTextAfterDataInsert();
-            }
-        });
     }
 
     private TextWatcher loginTextWatcher = new TextWatcher() {
@@ -155,17 +138,9 @@ public class Registration extends AppCompatActivity {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            first_name = firstName.getText().toString().trim();
-            last_name = lastName.getText().toString().trim();
-            dob = dateOfBirth.getText().toString().trim();
-            email = Email.getText().toString().trim();
-            pW = Password.getText().toString().trim();
-            cPW = confirmPassword.getText().toString().trim();
-            phone = phoneNumber.getText().toString().trim();
+            registrationPresenter.getediitextData(firstName, lastName, dateOfBirth, Email, Password, confirmPassword, phoneNumber);
             if (TextUtils.isEmpty(first_name) || TextUtils.isEmpty(last_name) || TextUtils.isEmpty(phone) || TextUtils.isEmpty(email) || TextUtils.isEmpty(email)
                     || TextUtils.isEmpty(pW) || TextUtils.isEmpty(cPW) || TextUtils.isEmpty(dob) || !textViewIsClicked) {
-
                 EditTextEmptyHolder = false;
             } else {
                 EditTextEmptyHolder = true;
@@ -208,26 +183,10 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    // Empty edittext after done inserting process method.
-    public void EmptyEditTextAfterDataInsert() {
-        firstName.getText().clear();
-        lastName.getText().clear();
-        dateOfBirth.getText().clear();
-        phoneNumber.getText().clear();
-        confirmPassword.getText().clear();
-        Email.getText().clear();
-        Password.getText().clear();
-    }
-
-    // Method to check EditText is empty or Not.
     public void CheckEditTextStatus() {
-        // Getting value from All EditText and storing into String Variables.
-
         String regex = "\\d{10}";
         Pattern pattern = Pattern.compile(regex);
-        //Creating a Matcher object
         Matcher matcher = pattern.matcher(phone);
-        //Verifying whether given phone number is valid
         if (matcher.matches()) {
             System.out.println("Given phone number is valid");
         } else {
@@ -242,42 +201,37 @@ public class Registration extends AppCompatActivity {
         }
     }
 
-    // Checking Email is already exists or not.
     public void CheckingEmailAlreadyExistsOrNot() {
-        // Opening SQLite database write permission.
-        sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
-        // Adding search email query to cursor.
-        cursor = sqLiteDatabaseObj.query(SqliteHelperClass.TABLE_NAME, null, " " + SqliteHelperClass.Table_Column_4_email + "=?", new String[]{email}, null, null, null);
-        while (cursor.moveToNext()) {
-
-            if (cursor.isFirst()) {
-
-                cursor.moveToFirst();
-
-                // If Email is already exists then Result variable value set as Email Found.
-                F_Result = "Email Found";
-
-                // Closing cursor.
-                cursor.close();
-            }
-        }
-        // Calling method to check final result and insert data into SQLite database.
+        registrationPresenter.CheckingEmailAlreadyExistsOrNot(email);
         CheckFinalResult();
 
     }
 
-
-    // Checking result
     public void CheckFinalResult() {
-        // Checking whether email is already exists or not.
         if (F_Result.equalsIgnoreCase("Email Found")) {
-            // If email is exists then toast msg will display.
             Toast.makeText(Registration.this, "Email Already Exists", Toast.LENGTH_LONG).show();
         } else {
-            // If email already dose n't exists then user registration details will entered to SQLite database.
             InsertDataIntoSQLiteDatabase();
         }
         F_Result = "Not_Found";
     }
+
+    @Override
+    public void getpassword(String ps) {
+        F_Result = ps;
+    }
+
+    @Override
+    public void setEdditTextData(String firstname_, String lastname_, String do_b, String e_mail, String p_W, String p_hone, String c_PW) {
+        //    String first_name, last_name, dob, phone, email, pW, cPW;
+        first_name = firstname_;
+        last_name = lastname_;
+        dob = do_b;
+        email = e_mail;
+        pW = p_W;
+        phone = p_hone;
+        cPW = c_PW;
+    }
+
 
 }
