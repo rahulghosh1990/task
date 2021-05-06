@@ -223,7 +223,6 @@ public class Registration extends AppCompatActivity implements RegistrationContr
 
     @Override
     public void setEdditTextData(String firstname_, String lastname_, String do_b, String e_mail, String p_W, String p_hone, String c_PW) {
-        //    String first_name, last_name, dob, phone, email, pW, cPW;
         first_name = firstname_;
         last_name = lastname_;
         dob = do_b;

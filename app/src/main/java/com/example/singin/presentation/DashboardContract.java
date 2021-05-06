@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface DashboardContract {
     void returnData();
-
     interface View{
         void getList(List<DemoModel> data);
     }
