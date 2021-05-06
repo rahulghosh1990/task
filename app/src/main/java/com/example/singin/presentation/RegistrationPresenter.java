@@ -7,7 +7,6 @@ import com.example.singin.view.SqliteHelperClass;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class RegistrationPresenter implements  RegistrationContract {
-    //TextInputEditText Email, Password, firstName, lastName, phoneNumber, dateOfBirth, confirmPassword;
     RegistrationContract.View view;
     SQLiteDatabase sqLiteDatabaseObj;
     SqliteHelperClass sqLiteHelper;
@@ -17,10 +16,7 @@ public class RegistrationPresenter implements  RegistrationContract {
     public RegistrationPresenter(SqliteHelperClass sqLiteHelper, RegistrationContract.View view) {
         this.sqLiteHelper=sqLiteHelper;
         this.view = view;
-
     }
-
-
     @Override
     public void getediitextData(TextInputEditText Email, TextInputEditText Password, TextInputEditText firstName, TextInputEditText lastName, TextInputEditText phoneNumber, TextInputEditText dateOfBirth, TextInputEditText confirmPassword) {
         firstname_ = firstName.getText().toString().trim();
@@ -32,8 +28,6 @@ public class RegistrationPresenter implements  RegistrationContract {
         p_hone = phoneNumber.getText().toString().trim();
         //view.setEdditTextData(firstname_,lastname_,do_b,e_mail,p_W,c_PW,p_hone);
     }
-
-
     @Override
     public void emptyEdittextAfterInsertion(TextInputEditText Email,TextInputEditText Password,TextInputEditText firstName,TextInputEditText lastName,TextInputEditText phoneNumber,TextInputEditText dateOfBirth,TextInputEditText confirmPassword) {
         firstName.getText().clear();
@@ -46,9 +40,7 @@ public class RegistrationPresenter implements  RegistrationContract {
     }
     @Override
     public void CheckingEmailAlreadyExistsOrNot(String email) {
-        // Opening SQLite database write permission.
         sqLiteDatabaseObj = sqLiteHelper.getWritableDatabase();
-        // Adding search email query to cursor.
         cursor = sqLiteDatabaseObj.query(SqliteHelperClass.TABLE_NAME, null, " " + SqliteHelperClass.Table_Column_4_email + "=?", new String[]{email}, null, null, null);
         while (cursor.moveToNext()) {
             if (cursor.isFirst()) {
@@ -58,6 +50,5 @@ public class RegistrationPresenter implements  RegistrationContract {
                 view.getpassword(F_Result);
             }
         }
-
     }
 }
